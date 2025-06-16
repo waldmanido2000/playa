@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Playa 6.1</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <h1 class="logo">🎵 Playa</h1>
+      <div class="controls">
+        <button onclick="openFiles()" title="Choose files">📁</button>
+        <button onclick="addURL()" title="Add URL">🌐</button>
+        <button onclick="saveQueue()" title="Save queue">💾</button>
+        <button onclick="loadQueue()" title="Load queue">📂</button>
+        <button onclick="refresh()" title="Refresh queue">🔁</button>
+      </div>
+      <ul id="queue"></ul>
+    </aside>
+
+    <main id="main">
+      <video id="mediaPlayer" controls width="640"></video>
+
+      <div id="mediaControls">
+        <div id="playerControls">
+          <button id="backBtn" onclick="prev()" title="Previous">⏮️</button>
+          <button id="playPauseBtn" onclick="play()" title="Play">▶️</button>
+          <button onclick="pause()" title="Pause">⏸️</button>
+          <button id="nextBtn" onclick="next()" title="Next">⏭️</button>
+          <select id="speedSelect" title="Playback Speed">
+            <option value="0.5">0.5x</option>
+            <option value="1" selected>1x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+          </select>
+        </div>
+
+        <div id="audioExtras" style="display: none;">
+          <div id="progressWrapper">
+            <label for="progressBar">Progress</label>
+            <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" title="Seek">
+            <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+          </div>
+
+          <div id="volumeWrapper">
+            <span id="volumeMinLabel">0</span>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" title="Volume">
+            <span id="volumeMaxLabel">100</span>
+          </div>
+        </div>
+
+        <div id="guessControls">
+          <label style="color: #ccc;">🎯 Guess Mode:
+            <input type="checkbox" id="toggleGuess">
+          </label>
+          <input type="number" id="guessDuration" min="0.1" max="10" step="0.1" value="5" style="width: 60px;">
+          <span id="guessCountdown" style="margin-left:10px;color:#0ff;"></span>
+          <button id="shuffleBtn" title="Shuffle queue" style="margin-left:15px;">🔀</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Queue name modal -->
+  <div id="nameModal" class="url-modal" style="display:none">
+    <div class="url-box">
+      <label for="queueNameInput">Enter queue name:</label>
+      <input id="queueNameInput" type="text" />
+      <button onclick="submitQueueName()">Save</button>
+      <button onclick="closeNameModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Guess Mode Modal -->
+  <div id="guessModal" class="modal hidden">
+    <div class="modal-content">
+      <label for="guessCountInput">How many songs to guess?</label>
+      <input type="number" id="guessCountInput" min="1">
+      <button id="startGuessGameBtn">Start</button>
+    </div>
+  </div>
+
+  <!-- Score Modal -->
+  <div id="scoreModal" class="modal hidden">
+    <div class="modal-content">
+      <p id="scoreText"></p>
+      <button id="replayBtn">Play Again</button>
+      <button id="exitBtn">Exit</button>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+  <script src="guessGame.js"></script>
+</body>
+</html>
